@@ -10,12 +10,20 @@ services:
       - ./devdata:/action-server/actions/devdata
       - action-server-data:/action-server/datadir
     restart: unless-stopped
+
+
+  actual-finance:
+    build:
+      context: ./actual-finance-agent
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./actual-finance-agent/datadir:/app/datadir
+    restart: unless-stopped
     environment:
-      - SERVICE_FQDN_HOMELAB_ACTIONS_4000
-      - KEY_FILEPATH=${KEY_FILEPATH}
-      - PASSWORD=${PASSWORD}
-      - VISION_IP=${VISION_IP}
-      - VISION_USERNAME=${VISION_USERNAME}
+      - ACTUAL_PASSWORD=${ACTUAL_PASSWORD}
+      - FILE_PASSWORD=${FILE_PASSWORD}
 
 volumes:
   action-server-data:

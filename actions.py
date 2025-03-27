@@ -23,7 +23,7 @@ def ensure_node_server_running():
 
     # If we're here, the server is not running.
     # Define the full path to your server.js script.
-    script_path = "/workspaces/ror-latest/actual-finance-agent/server.js"
+    script_path = "/home/kdlocpanda/playground/RPA/actual-budget-server/actual-finance-agent/server.js"
     script_dir = os.path.dirname(script_path)
     print("Node server not running. Starting it as a background process...")
     # Start the Node.js server in background
@@ -52,6 +52,14 @@ def get_budget_summary() -> Response[dict]:
 def get_transactions(account_id: str, start_date: str, end_date: str) -> Response[dict]:
     """
     Retrieves transactions for a given account and date range.
+    
+    Args:
+        account_id: The unique identifier for the account to retrieve transactions from.
+        start_date: The beginning date for the transaction query in ISO format (YYYY-MM-DD).
+        end_date: The ending date for the transaction query in ISO format (YYYY-MM-DD).
+        
+    Returns:
+        A Response object containing the transactions data or an error message.
     """
     try:
         ensure_node_server_running()
