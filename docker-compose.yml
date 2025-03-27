@@ -1,0 +1,21 @@
+name: home-lab-actions
+services:
+  action-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:8087"  # Exposes Nginx, which now routes "/" to the web UI
+    volumes:
+      - ./devdata:/action-server/actions/devdata
+      - action-server-data:/action-server/datadir
+    restart: unless-stopped
+    environment:
+      - SERVICE_FQDN_HOMELAB_ACTIONS_4000
+      - KEY_FILEPATH=${KEY_FILEPATH}
+      - PASSWORD=${PASSWORD}
+      - VISION_IP=${VISION_IP}
+      - VISION_USERNAME=${VISION_USERNAME}
+
+volumes:
+  action-server-data:

@@ -1,0 +1,23 @@
+{
+    "inputs": [
+        {
+            "inputName": "input-1",
+            "inputValue": {
+                "url": "https://www.google.com",
+                "flags": "--screenshot"
+            }
+        }
+    ],
+    "metadata": {
+        "actionName": "crawl_site",
+        "actionRelativePath": "actions.py",
+        "schemaDescription": [
+            "url: string: The website URL to crawl",
+            "flags: string: Optional flags to pass to the script (e.g. \"--screenshot\")"
+        ],
+        "managedParamsSchemaDescription": {},
+        "inputFileVersion": "v3",
+        "kind": "action",
+        "actionSignature": "action/args: \"url: str, flags: str=''\""
+    }
+}
