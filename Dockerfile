@@ -1,4 +1,13 @@
-FROM debian:bookworm-slim
+FROM ubuntu:22.04
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    wget \
+    curl \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/*
 
 # Setup Nginx and Supervisor
 RUN apt-get update && apt-get install -y procps nginx supervisor && \
@@ -17,9 +26,6 @@ RUN chown -R as-user:as-user /action-server
 
 # Install Playwright dependencies
 RUN apt-get update && apt-get install -y \
-    wget \
-    gnupg \
-    ca-certificates \
     fonts-liberation \
     libasound2 \
     libatk-bridge2.0-0 \
@@ -48,15 +54,12 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /action-server/actions
 
 # Setup Action Server
-ADD https://cdn.sema4.ai/action-server/releases/latest/linux64/action-server /usr/local/bin/action-server
-RUN chmod +x /usr/local/bin/action-server
+RUN wget -O action-server https://github.com/Sema4AI/actions/releases/download/sema4ai-action_server-2.6.0/sema4ai-action_server-2.6.0-linux64 && \
+    chmod +x action-server && \
+    mv action-server /usr/local/bin/
 
 # Copy files first while still root
 COPY . .
-
-# Set correct ownership and permissions for SSH key
-RUN chown as-user:as-user /action-server/actions/id_ed25519_vision && \
-    chmod 600 /action-server/actions/id_ed25519_vision
 
 USER as-user
 
