@@ -1,4 +1,4 @@
-name: home-lab-actions
+name: actual-finance-system
 services:
   action-server:
     build:
@@ -10,14 +10,14 @@ services:
       - ./devdata:/action-server/actions/devdata
       - action-server-data:/action-server/datadir
     restart: unless-stopped
-
+    depends_on:
+      - actual-finance
 
   actual-finance:
     build:
       context: ./actual-finance-agent
       dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
+
     volumes:
       - ./actual-finance-agent/datadir:/app/datadir
     restart: unless-stopped
