@@ -1,9 +1,7 @@
 name: actual-finance-system
 services:
   action-server:
-    build:
-      context: .
-      dockerfile: Dockerfile
+
     image: ghcr.io/joshyorko/actual-finance-action-server:latest
     container_name: action-server
 
@@ -14,15 +12,15 @@ services:
         is_directory: true
       - action-server-data:/action-server/datadir
     restart: unless-stopped
+    ports:
+      - "4000:8087" 
     environment:
       - SERVICE_FQDN_ACTION_SERVER_4000
     depends_on:
       - actual-finance
 
   actual-finance:
-    build:
-      context: ./actual-finance-agent
-      dockerfile: Dockerfile
+
     image: ghcr.io/joshyorko/actual-finance-agent:latest
     container_name: actual-finance
 
