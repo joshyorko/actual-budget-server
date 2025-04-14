@@ -11,8 +11,7 @@ services:
         is_directory: true
       - action-server-data:/action-server/datadir
     restart: unless-stopped
-    ports:
-      - "8080:8080"
+
     environment:
       - SERVICE_FQDN_ACTION_SERVER_8087
     depends_on:
