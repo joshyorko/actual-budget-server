@@ -6,12 +6,16 @@ services:
       dockerfile: Dockerfile
     image: ghcr.io/joshyorko/actual-finance-action-server:latest
     container_name: action-server
-    ports:
-      - "4000:8087"  # Exposes Nginx, which now routes "/" to the web UI
+
     volumes:
-      - ./devdata:/action-server/actions/devdata
+      - type: bind
+        source: ./devdata
+        target: /action-server/actions/devdata
+        is_directory: true
       - action-server-data:/action-server/datadir
     restart: unless-stopped
+    environment:
+      - SERVICE_FQDN_ACTION_SERVER_4000
     depends_on:
       - actual-finance
 
@@ -23,11 +27,14 @@ services:
     container_name: actual-finance
 
     volumes:
-      - ./actual-finance-agent/datadir:/app/datadir
+      - type: bind
+        source: ./actual-finance-agent/datadir
+        target: /app/datadir
+        is_directory: true
     restart: unless-stopped
     environment:
-      - ACTUAL_PASSWORD=${ACTUAL_PASSWORD}
-      - FILE_PASSWORD=${FILE_PASSWORD}
+      - ACTUAL_PASSWORD=${SERVICE_PASSWORD_ACTUAL}
+      - FILE_PASSWORD=${SERVICE_PASSWORD_FILE}
 
 volumes:
   action-server-data:
