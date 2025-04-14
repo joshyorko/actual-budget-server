@@ -1,10 +1,7 @@
-name: actual-finance-system
 services:
   action-server:
-
     image: ghcr.io/joshyorko/actual-finance-action-server:latest
     container_name: action-server
-
     volumes:
       - type: bind
         source: ./devdata
@@ -13,17 +10,17 @@ services:
       - action-server-data:/action-server/datadir
     restart: unless-stopped
     ports:
-      - "8087:8087" 
+      - "8080:8080"
     environment:
-      - SERVICE_FQDN_ACTION_SERVER_8087
+      - SERVICE_FQDN_ACTION_SERVER_8080
     depends_on:
       - actual-finance
+    labels:
+      - traefik.http.middlewares.action-auth.basicauth.users=${TRAEFIK_AUTH_USER}
 
   actual-finance:
-
     image: ghcr.io/joshyorko/actual-finance-agent:latest
     container_name: actual-finance
-
     volumes:
       - type: bind
         source: ./actual-finance-agent/datadir
@@ -33,6 +30,3 @@ services:
     environment:
       - ACTUAL_PASSWORD=${SERVICE_PASSWORD_ACTUAL}
       - FILE_PASSWORD=${SERVICE_PASSWORD_FILE}
-
-volumes:
-  action-server-data:
