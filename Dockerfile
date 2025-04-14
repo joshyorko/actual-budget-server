@@ -60,15 +60,11 @@ RUN curl -o action-server https://cdn.sema4.ai/action-server/releases/latest/lin
 
 # Copy files first while still root
 COPY . .
-COPY entrypoint.sh /entrypoint.sh
-
-# Ensure entrypoint.sh is executable
-RUN chmod +x /entrypoint.sh
 
 USER as-user
 
 RUN action-server import --datadir=/action-server/datadir
 
-EXPOSE 8087
+EXPOSE 8080
 
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/usr/bin/supervisord"]
