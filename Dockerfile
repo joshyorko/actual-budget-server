@@ -69,6 +69,6 @@ USER as-user
 
 RUN action-server import --datadir=/action-server/datadir
 
-EXPOSE 8080
+EXPOSE 8087
 
 ENTRYPOINT ["/entrypoint.sh"]

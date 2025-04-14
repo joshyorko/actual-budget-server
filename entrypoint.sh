@@ -12,7 +12,7 @@ fi
 exec action-server start \
   --api-key "$ACTION_SERVER_API_KEY" \
   --address 0.0.0.0 \
-  --port 8080 \
+  --port 8087 \
   --verbose \
   --datadir=/action-server/datadir \
   --actions-sync=false
