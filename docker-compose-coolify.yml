@@ -12,12 +12,9 @@ services:
       - action-server-data:/action-server/datadir
     restart: unless-stopped
 
-    environment:
-      - SERVICE_FQDN_ACTION_SERVER_8087
     depends_on:
       - actual-finance
-    labels:
-      - traefik.http.middlewares.action-auth.basicauth.users=${TRAEFIK_AUTH_USER}
+
 
   actual-finance:
     build:
