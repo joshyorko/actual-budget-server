@@ -13,9 +13,9 @@ services:
       - action-server-data:/action-server/datadir
     restart: unless-stopped
     ports:
-      - "4000:8087" 
+      - "8080:8080" 
     environment:
-      - SERVICE_FQDN_ACTION_SERVER_4000
+      - SERVICE_FQDN_ACTION_SERVER_8080
     depends_on:
       - actual-finance
 

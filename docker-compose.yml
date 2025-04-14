@@ -7,7 +7,7 @@ services:
     image: ghcr.io/joshyorko/actual-finance-action-server:latest
     container_name: action-server
     ports:
-      - "4000:8087"  # Exposes Nginx, which now routes "/" to the web UI
+      - "8080:8080"  
     volumes:
       - ./devdata:/action-server/actions/devdata
       - action-server-data:/action-server/datadir
