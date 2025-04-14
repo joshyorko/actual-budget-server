@@ -54,8 +54,8 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /action-server/actions
 
 # Setup Action Server
-RUN wget -O action-server https://github.com/Sema4AI/actions/releases/download/sema4ai-action_server-2.6.0/sema4ai-action_server-2.6.0-linux64 && \
-    chmod +x action-server && \
+RUN curl -o action-server https://cdn.sema4.ai/action-server/releases/latest/linux64/action-server && \
+    chmod a+x  action-server && \
     mv action-server /usr/local/bin/
 
 # Copy files first while still root

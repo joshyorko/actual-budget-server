@@ -11,11 +11,11 @@ async function withActualApi(callback) {
   try {
     await actual.init({
       dataDir: '/app/datadir',
-      serverURL: 'https://actual-v0gc80ok4sgc4ks8gc448s0g.joshyorko.com',
+      serverURL: 'https://actual-w84g48cscoc0ko4w8w0oscgg.joshyorko.com',
       password: process.env.ACTUAL_PASSWORD,
     });
 
-    await actual.downloadBudget('413566f6-3485-4fdf-8c63-6404221b72f7', {
+    await actual.downloadBudget('86ce3c8e-e125-4304-a95b-8783e2da57ad', {
       password: process.env.FILE_PASSWORD,
     });
     const result = await callback();
