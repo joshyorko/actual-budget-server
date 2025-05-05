@@ -16,12 +16,14 @@ services:
       - actual-finance
 
   actual-finance:
+    
     build:
       context: ./actual-finance-agent
       dockerfile: Dockerfile
     image: ghcr.io/joshyorko/actual-finance-agent:latest
     container_name: actual-finance
-
+    ports:
+      - "3000:3000"
     volumes:
       - ./actual-finance-agent/datadir:/app/datadir
     restart: unless-stopped
